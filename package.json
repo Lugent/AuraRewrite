@@ -14,6 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "better-sqlite3": "^7.6.2",
+    "canvas": "^2.9.3",
+    "dayjs": "^1.11.4",
     "discord.js": "^14.0.2",
     "dotenv": "^16.0.1",
     "glob": "^8.0.3"
