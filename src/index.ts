@@ -1,5 +1,5 @@
 require("dotenv").config();
-import { ButtonInteraction, CommandInteraction, ComponentType, InteractionType } from "discord.js";
+import { ButtonInteraction, ChatInputCommandInteraction, ComponentType, InteractionType } from "discord.js";
 import { AuraClient } from "./structures/Client";
 import { CommandStructureApplications, CommandStructureButtons } from "./typings/Command";
 
@@ -14,10 +14,17 @@ client.on("interactionCreate", async (interaction) => {
     console.log(interaction);
     switch (interaction.type) {
         case InteractionType.ApplicationCommand: {
-            let name: string = interaction.commandName;
-            let handler: CommandStructureApplications;
-            client.commands.forEach(async (cmd) => { handler = cmd.applications ? cmd.applications.find(app => (app.format.name === name)) : undefined; });
-            if (handler) { handler.execute({client, interaction: interaction as CommandInteraction}); }
+            if (interaction instanceof ChatInputCommandInteraction) {
+                let name: string = interaction.commandName;
+                let handler: CommandStructureApplications;
+                client.commands.forEach(async (cmd) => {
+                    let found_handler: CommandStructureApplications;
+                    if (cmd.applications) { found_handler = cmd.applications.find(app => (app.format.name == name)); }
+                    if (found_handler) { handler = found_handler; }
+                });
+
+                if (handler) { handler.execute({client, interaction: interaction as ChatInputCommandInteraction}); }
+            }
             break;
         }
 
@@ -30,7 +37,12 @@ client.on("interactionCreate", async (interaction) => {
                 case ComponentType.Button: {
                     let name: string = interaction.customId;
                     let handler: CommandStructureButtons;
-                    client.commands.forEach(async (cmd) => { handler = cmd.buttons ? cmd.buttons.find(app => (app.name == name)) : undefined; })
+                    client.commands.forEach(async (cmd) => {
+                        let found_handler: CommandStructureButtons;
+                        if (cmd.buttons) { handler = cmd.buttons.find(app => (app.name == name)); }
+                        if (found_handler) { handler = found_handler; }
+                    })
+
                     if (handler) { handler.execute({client, interaction: interaction as ButtonInteraction}); }
                     break;
                 }
