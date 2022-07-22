@@ -1,7 +1,7 @@
-import { ApplicationCommandData, ButtonInteraction, CommandInteraction, SelectMenuInteraction } from "discord.js";
+import { ApplicationCommandData, ButtonInteraction, ChatInputCommandInteraction, SelectMenuInteraction } from "discord.js";
 import { AuraClient } from "../structures/Client";
 
-interface CommandRunOptions {client: AuraClient, interaction: CommandInteraction}
+interface CommandRunOptions {client: AuraClient, interaction: ChatInputCommandInteraction}
 interface ButtonRunOptions {client: AuraClient, interaction: ButtonInteraction}
 interface SelectMenuRunOptions {client: AuraClient, interaction: SelectMenuInteraction}
 
