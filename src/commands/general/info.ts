@@ -51,32 +51,32 @@ const command: CommandStructure = {
                     case "user": {
                         await interaction.deferReply();
                         
-                        let get_user: User|void = await client.users.fetch(interaction.options.getString("id") || interaction.user, {force: true}).catch((error) => {});
-                        if (!get_user) {
+                        let getUser: User|void = await client.users.fetch(interaction.options.getString("id") || interaction.user, {force: true}).catch((error) => {});
+                        if (!getUser) {
                             return interaction.editReply({content: "Something failed or the user doesn't exists."})
                         }
 
-                        let user_embed: EmbedBuilder = new EmbedBuilder();
-                        user_embed.setColor(get_user.accentColor);
-                        user_embed.setAuthor({name: get_user.tag, iconURL: get_user.avatarURL({extension: "png", size: 4096})});
-                        if (get_user.banner) { user_embed.setImage(get_user.bannerURL({extension: "png", size: 4096})); }
-                        user_embed.setFooter({text: "Account creation: " + dayjs().calendar(get_user.createdTimestamp) + " (" + dayjs(get_user.createdTimestamp).fromNow() + ")"});
-                        await interaction.editReply({embeds: [user_embed]});
+                        let userEmbed: EmbedBuilder = new EmbedBuilder();
+                        userEmbed.setColor(getUser.accentColor);
+                        userEmbed.setAuthor({name: getUser.tag, iconURL: getUser.avatarURL({extension: "png", size: 4096})});
+                        if (getUser.banner) { userEmbed.setImage(getUser.bannerURL({extension: "png", size: 4096})); }
+                        userEmbed.setFooter({text: "Account creation: " + dayjs().calendar(getUser.createdTimestamp) + " (" + dayjs(getUser.createdTimestamp).fromNow() + ")"});
+                        await interaction.editReply({embeds: [userEmbed]});
                         break;
                     }
 
                     case "member": {
                         await interaction.deferReply();
 
-                        let get_member: GuildMember|void = await interaction.guild.members.fetch({user: interaction.options.getUser("member") || interaction.user, force: true}).catch((error) => {});
-                        if (!get_member) {
+                        let getMember: GuildMember|void = await interaction.guild.members.fetch({user: interaction.options.getUser("member") || interaction.user, force: true}).catch((error) => {});
+                        if (!getMember) {
                             return interaction.editReply({content: "Something failed or the member doesn't exists."})
                         }
 
-                        let member_embed: EmbedBuilder = new EmbedBuilder();
-                        member_embed.setAuthor({name: get_member.nickname || get_member.user.username, iconURL: get_member.avatarURL({extension: "png", size: 4096}) || get_member.user.avatarURL({extension: "png", size: 4096})});
-                        member_embed.setFooter({text: "Member since: " + dayjs().calendar(get_member.joinedTimestamp) + " (" + dayjs(get_member.joinedTimestamp).fromNow() + ")"});
-                        await interaction.editReply({embeds: [member_embed]});
+                        let memberEmbed: EmbedBuilder = new EmbedBuilder();
+                        memberEmbed.setAuthor({name: getMember.nickname || getMember.user.username, iconURL: getMember.avatarURL({extension: "png", size: 4096}) || getMember.user.avatarURL({extension: "png", size: 4096})});
+                        memberEmbed.setFooter({text: "Member since: " + dayjs().calendar(getMember.joinedTimestamp) + " (" + dayjs(getMember.joinedTimestamp).fromNow() + ")"});
+                        await interaction.editReply({embeds: [memberEmbed]});
                         break;
                     }
                 }
