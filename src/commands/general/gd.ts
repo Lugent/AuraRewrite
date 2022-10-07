@@ -1,5 +1,5 @@
 import request from "request"; // Because is the only working to talk with robtop's servers
-import { ConvertToGJSearch } from "../../structures/GD";
+import { ConvertToGJSearch, GJLevelSearch } from "../../structures/GD";
 import { CommandStructure } from "../../typings/Command";
 
 let command: CommandStructure = {
@@ -20,7 +20,7 @@ let command: CommandStructure = {
                         console.log(error);
                     }
                     else {
-                        let level = ConvertToGJSearch(body);
+                        let level: GJLevelSearch = ConvertToGJSearch(body);
                         for (let i = 0; i < level.levels.length; i++)
                         {
                             console.log(level.levels[i].name);

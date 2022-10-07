@@ -118,6 +118,7 @@ export class GJLevelAuthor {
         this.username = data[GJLevelAuthorValues.Username] || "-";
         this.accountID = Number(data[GJLevelAuthorValues.AccountID]) || 0;
     }
+    
     public playerID: number;
     public username: string;
     public accountID: number;
@@ -173,6 +174,7 @@ export class GJLevel {
 		this.large = (this.objects > 40000);
 		this.difficulty = (Number(data[25]) > 0) ? "Auto" : ((Number(data[17]) > 0) ? (demonDifficultyTable[data[43]] || "Hard") + " Demon" : difficultyTable[data[9]]);
 	}
+
     public id: number;
     public name: string;
     public description: string;
@@ -223,6 +225,7 @@ export class GJLevelSearch {
 			this.levels[k] = new GJLevel(levels_data[k], level_author, level_song);
 		}
 	}
+
     public currentPage: number;
     public maxPage: number;
     public listCount: number;
@@ -230,17 +233,17 @@ export class GJLevelSearch {
 }
 
 export function ConvertToGJSearch(data: string): GJLevelSearch {
-    let raw_data = data.split("#");
-	let raw_levels_array = raw_data[0].split("|");
-	let raw_authors_array = raw_data[1].split("|");
-	let raw_songs_array = raw_data[2].split("~:~");
-	let raw_page_array = raw_data[3].split(":");
+    let raw_data: string[] = data.split("#");
+	let raw_levels_array: string[] = raw_data[0].split("|");
+	let raw_authors_array: string[] = raw_data[1].split("|");
+	let raw_songs_array: string[] = raw_data[2].split("~:~");
+	let raw_page_array: string[] = raw_data[3].split(":");
 
 	let songs_array: string[][] = [];
 	for (let j = 0; j < raw_songs_array.length; j += 1)
 	{
 		let song_array: string[] = [];
-		let raw_song_array = raw_songs_array[j].split("~|~");
+		let raw_song_array: string[] = raw_songs_array[j].split("~|~");
 		for (let i = 0; i < raw_song_array.length; i += 2) { song_array[raw_song_array[i]] = raw_song_array[i + 1]; }
 		songs_array[j] = song_array;
 	}
@@ -248,7 +251,7 @@ export function ConvertToGJSearch(data: string): GJLevelSearch {
 	let authors_array: string[][] = [];
 	for (let j = 1; j < raw_authors_array.length; j += 1)
 	{
-		let raw_author_array = raw_authors_array[j].split("|")[0].split(":");
+		let raw_author_array: string[] = raw_authors_array[j].split("|")[0].split(":");
 		authors_array[j] = raw_author_array;
 	}
 
@@ -256,7 +259,7 @@ export function ConvertToGJSearch(data: string): GJLevelSearch {
 	for (let j = 0; j < raw_levels_array.length; j += 1)
 	{
 		let level_array: string[] = [];
-		let raw_level_array = raw_levels_array[j].split(":");
+		let raw_level_array: string[] = raw_levels_array[j].split(":");
 		for (let i = 0; i < raw_level_array.length; i += 2) { level_array[raw_level_array[i]] = raw_level_array[i + 1]; }
 		levels_array[j] = level_array;
 	}
