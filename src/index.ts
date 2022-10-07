@@ -6,6 +6,10 @@ import { CommandStructureApplications, CommandStructureButtons } from "./typings
 export const client = new AuraClient();
 client.start();
 
+process.on("unhandledRejection", (error: Error) => {
+    console.error(error);
+});
+
 client.on("ready", async () => {
     client.registerApplications();
 });
