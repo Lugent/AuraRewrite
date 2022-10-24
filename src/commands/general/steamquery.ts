@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import { ApplicationCommandOptionType, AttachmentBuilder, EmbedBuilder } from "discord.js";
+import { EmbedBuilder } from "discord.js";
+import { ApplicationCommandOptionType, AttachmentBuilder } from "discord.js";
 import { InfoResponse, PlayerResponse, queryGameServerInfo, queryGameServerPlayer } from "steam-server-query";
 import { getGameFolderName, getGModGamemodeCategory, getGModGamemodeIcon, getGModGamemodeName, getLocationFlag, getSourceMap, getSteamGame } from "../../functions/steamInfo";
 import { CommandStructure } from "../../typings/Command";
